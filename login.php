@@ -3,10 +3,10 @@
         <title>MiniBlog - Login</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"></style>
+        <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>  
     </head>
     <body>
-        <form method="post">
+        <form method="post" style=" width: 400px; position: absolute; left: 50%; transform: translatex(-50%);">
             <h2>Login</h2>
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -17,11 +17,9 @@
                 <input type="password" class="form-control" id="password" placeholder="Password">
             </div>
             <button type="button" class="btn btn-primary" onclick="login('login')">Login</button>
-            <p>Don't have an account? <a href="register.php">Register</a></p>
+            <label>Don't have an account? <a href="register.php">Register</a></label>
         </form>
         <?php require 'script.php' ?>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     </body>
     
 </html>

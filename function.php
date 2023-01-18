@@ -19,6 +19,7 @@ if (isset($_POST["action"])) {
     }
 }
 
+#for registering new users
 function insert(){
     global $conn;
 
@@ -28,25 +29,33 @@ function insert(){
 
     $query = "INSERT INTO tbl_accounts (username, email, password) VALUES('$name', '$email', '$password')";
     mysqli_query($conn, $query);
-    echo "added successfully";
+    $data = $name;
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($data);
 }
+#for logging in
 function login(){
     global $conn;
 
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    $query = "SELECT email, password FROM tbl_accounts WHERE email = '$email' and password = $password";
+    $query = "SELECT username, email, password FROM tbl_accounts WHERE email = '$email' AND password = '$password'";
     $results = mysqli_query($conn, $query);
 
-    foreach ($results as $result)
-        if ($result["email"] == $email && $result["password"] == $password)
-            echo "Success";
+    foreach ($results as $result) {
+        if ($result["email"] == $email && $result["password"] == $password) {
+            $data = $result["username"];
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($data);
+        }
         else
-            echo "Wrong username or password";
-    if ($results == null)
-            echo "Wrong username or password";
+            echo("Error");
+        return;
+    }
+    echo("Error");
 }
+#for creating new post
 function post(){
     global $conn;
 
@@ -57,9 +66,9 @@ function post(){
     
     $query = "INSERT INTO tbl_posts (title, content, date) VALUES('$title', '$content', CAST('$result' AS CHAR(100)))";
     mysqli_query($conn, $query);
-    echo "post successfully created";
+    echo "Post successfully created";
 }
-
+#for editing post
 function edit(){
     global $conn;
 
@@ -72,9 +81,9 @@ function edit(){
     
     $query = "UPDATE tbl_posts SET title = '$title', content = '$content', date = CAST('$edited' AS CHAR(100)) WHERE postID = $id";
     mysqli_query($conn, $query);
-    echo "post successfully edited";
+    echo "Post successfully edited";
 }
-
+#for deleting post
 function delete(){
     global $conn;
 
@@ -82,6 +91,6 @@ function delete(){
     
     $query = "DELETE FROM tbl_posts WHERE postID = $id";
     mysqli_query($conn, $query);
-    echo "post successfully deleted";
+    echo "Post successfully deleted";
 }
 ?>
